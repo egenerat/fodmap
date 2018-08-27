@@ -1,0 +1,22 @@
+{
+  "name": "fodmap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egenerat/fodmap.git"
+  },
+  "author": "Emile Generat",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/egenerat/fodmap/issues"
+  },
+  "homepage": "https://github.com/egenerat/fodmap#readme",
+  "dependencies": {
+    "clarifai": "^2.8.1"
+  }
+}
