@@ -2,31 +2,40 @@ import React, { Component } from 'react';
 import logo from './logo.png';
 import './App.css';
 
-const food = [
+const foodData = [
   {
     'name': 'rice',
-    'status': 'low fodmap'
+    'fodmap': 'low'
   },
   {
     'name': 'onion',
-    'status': 'high fodmap'
+    'fodmap': 'high',
+    'alternatives': [
+      'chives'
+    ]
   },
   {
     'name': 'apple',
-    'status': 'high fodmap'
+    'fodmap': 'high'
   },
   {
     'name': 'strawberry',
-    'status': 'low fodmap'
+    'fodmap': 'low'
+  },
+  {
+    'name': 'chives',
+    'fodmap': 'low'
   }
 ];
 
-const foodItemsBoxes = food.map((food) => {
-    const fodmapStyle = food.status === 'high fodmap' ? 'App-high' : 'App-low';
+
+const foodItemsBoxes = (foodItems) => foodItems.map((food) => {
+  const fodmapStyle = food.fodmap === 'high' ? 'App-high' : 'App-low';
     const classes = `${fodmapStyle} boxes`;
     return <div key={food.name} className={classes}>
       {food.name}
     </div>
+});
 
 
 class IngredientForm extends React.Component {
