@@ -1,6 +1,6 @@
 # fodmap
 
-![Photo by Element5 Digital on Unsplash =250x](assets/element5-digital-500009-unsplash.jpg)
+<img alt="Photo by Element5 Digital on Unsplash" src="assets/element5-digital-500009-unsplash.jpg" width="250">
 
 More information: https://en.wikipedia.org/wiki/FODMAP
 
