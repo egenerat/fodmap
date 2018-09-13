@@ -24,24 +24,50 @@ const food = [
 const foodItemsBoxes = food.map((food) => {
     const fodmapStyle = food.status === 'high fodmap' ? 'App-high' : 'App-low';
     const classes = `${fodmapStyle} boxes`;
-    return <div key={food.id} className={classes}>
+    return <div key={food.name} className={classes}>
       {food.name}
     </div>
-  }
-);
 
-function UserInput() {
-  return (
-    <form>
-      <label>
-        Ingredient:
-            <input type="text" name="name" />
-      </label>
-    </form>
-  );
-}
+
+class IngredientForm extends React.Component {
+
+  render() {
+    return (
+      <form onSubmit={this.props.handleSubmit}>
+        <label>
+          Ingredient:
+          <input type="text" value={this.props.value} onChange={this.props.onChangeValue} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+  }
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { value: '' };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+  }
+
+
+  getCompatibleFood(userInput) {
+    return foodData.filter((ingredient) => ingredient.name.toLowerCase().startsWith(userInput.toLowerCase()))
+}
+
   render() {
     return (
       <div className="App">
@@ -49,8 +75,11 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">fodmap</h1>
         </header>
-        <UserInput></UserInput>
-        {foodItemsBoxes}
+        <IngredientForm
+          onChangeValue={this.handleChange}
+          onSubmit={this.onSubmit}
+        />
+        {foodItemsBoxes(this.getCompatibleFood(this.state.value))}
       </div>
     );
   }
