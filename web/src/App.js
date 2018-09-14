@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.png';
+import strawberry from './strawberry.jpg';
 import './App.css';
 
 const foodData = [
@@ -30,12 +31,32 @@ const foodData = [
 
 
 const foodItemsBoxes = (foodItems) => foodItems.map((food) => {
-  const fodmapStyle = food.fodmap === 'high' ? 'App-high' : 'App-low';
-    const classes = `${fodmapStyle} boxes`;
-    return <div key={food.name} className={classes}>
-      {food.name}
-    </div>
+  return <Card foodData={food}/>
 });
+
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function Card(props) {
+  const fodmapStyle = props.foodData.fodmap === 'high' ? 'red lighten-4' : 'green lighten-4';
+  const classes = `card small ${fodmapStyle}`;
+  return (
+    <div class={classes}>
+      <div class="card-image waves-effect waves-block waves-light">
+        <img alt="{props.foodData.name}" class="activator" src={strawberry} />
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">{capitalizeFirstLetter(props.foodData.name)}<i class="material-icons right">more</i></span>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">More details: {capitalizeFirstLetter(props.foodData.name)}<i class="material-icons right">close</i></span>
+        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+        <p>Alternatives: {props.foodData.alternatives}</p>
+      </div>
+    </div>
+  );
+}
 
 
 class IngredientForm extends React.Component {
@@ -51,7 +72,7 @@ class IngredientForm extends React.Component {
       </form>
     );
   }
-  }
+}
 
 class App extends Component {
 
@@ -75,7 +96,7 @@ class App extends Component {
 
   getCompatibleFood(userInput) {
     return foodData.filter((ingredient) => ingredient.name.toLowerCase().startsWith(userInput.toLowerCase()))
-}
+  }
 
   render() {
     return (
@@ -89,6 +110,7 @@ class App extends Component {
           onSubmit={this.onSubmit}
         />
         {foodItemsBoxes(this.getCompatibleFood(this.state.value))}
+        <div style={{clear: "both"}}></div>
       </div>
     );
   }

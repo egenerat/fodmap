@@ -22,20 +22,10 @@
   font-size: large;
 }
 
-.App-low {
-  background-color: rgb(171, 255, 123);
-}
-
-.App-high {
-  background-color: rgb(252, 105, 105);
-}
-
-.boxes {
+.small {
+  width: 200px;
   float: left;
-  width: 30%;
-  height: 5rem;
-  margin-right: 0.5em;
-  margin-bottom: 0.5rem;
+  margin-left: 10px;
 }
 
 @keyframes App-logo-spin {
