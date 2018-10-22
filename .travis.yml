@@ -9,3 +9,8 @@ script:
   - npm install
   - npm test
   - npm run build
+deploy:
+  provider: surge
+  project: ./web/build/
+  domain: fodmap.surge.sh
+  skip_cleanup: true
