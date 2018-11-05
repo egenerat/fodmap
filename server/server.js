@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+const port = process.env.PORT || 8080;
+
 app.get('/api/food', (req, res) => {
     res.json([
         {
@@ -12,6 +14,6 @@ app.get('/api/food', (req, res) => {
         }]);
 });
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
