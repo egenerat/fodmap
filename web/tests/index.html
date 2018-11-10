@@ -2,11 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>My camera page</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <!-- <script src="script.js"></script> -->
+    <title>fodmap</title>
   </head>
   <body>
-    <input type="file" accept="image/*">
+    <label for="file-camera">Take a picture</label>
+    <input type="file" accept="image/*" capture="environment" id="file-camera">
+    <br>
+    <label for="file-upload">Upload a photo</label>
+    <input type="file" accept="image/*" id="file-upload">
+    <script>
+        const uploadFiles = (files) => {
+            let photo = files[0]
+            let formData = new FormData();
+            formData.append("photo", photo);
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", '/upload/image');
+            xhr.send(formData);
+        };
+
+        const fileInput = document.getElementById('file-camera');
+        fileInput.addEventListener('change', (e) =>
+            uploadFiles(e.target.files)
+        );
+    </script>
   </body>
 </html>
