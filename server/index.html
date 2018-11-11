@@ -10,6 +10,9 @@
     <br>
     <label for="file-upload">Upload a photo</label>
     <input type="file" accept="image/*" id="file-upload">
+
+    <canvas id="canvas" width="640" height="480"></canvas>
+
     <script>
         const uploadFiles = (files) => {
             let photo = files[0]
@@ -21,9 +24,14 @@
         };
 
         const fileInput = document.getElementById('file-camera');
-        fileInput.addEventListener('change', (e) =>
-            uploadFiles(e.target.files)
-        );
+        fileInput.addEventListener('change', (e) => {
+            uploadFiles(e.target.files);
+            context.drawImage(e.target.files[0], 0, 0, 640, 480);
+        });
+
+        // Elements for taking the snapshot
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
     </script>
   </body>
 </html>
