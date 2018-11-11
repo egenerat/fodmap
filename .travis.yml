@@ -9,13 +9,10 @@ script:
 - npm install
 - npm test
 - npm run build
+before_deploy:
+- cd ../server/
 deploy:
-  - provider: surge
-    project: "./web/build/"
-    domain: fodmap.surge.sh
-    skip_cleanup: true
   - provider: heroku
-    project: "./server/"
     app: fodmapp
     api_key:
       secure: M0kME1dhXxA14KrMNB1vo9qmcVvdbp3hCr220K4cBkrCW2RPAr8qPL9vcDFby74UNq5SJdIBKNfkJJ1Ezl+ocT3RM2PJUnsxIQ/9n4smRjpWRnFIYaQLVGckKW6KPpRXIUrBIi0br2HeyxwAhaf/UUKCGO6MbtudTIE218jAL1R6wd1q0WxBQRg43wK+f1PuBbrznVNbxT97TrqH4yeT7gYVZnTYjg/ZLHXmIIX4KZx2qLRL5gBdPxdD0hU21Gii4R2qZp5dhQcxnvQGPDUtWV0Ir2xpbntpRsZg6qHJPHDZZ1TkAUAnw2lo9OKbM6p5qbdzQ7hgj5Y5VL0ryN/9gUu0ADpTHB0G0dqcfDjanG9U6sqgr29UL0qxuOqxpQjZmf3Rb86yqlhWPTHCc2Q1aELyOMUn5ZAFYrv10RAMM4qHPyUkkMy2hOBPGzPkoNgY+LNkmfRy41sthWclT9W+au69GpufihryMlQvWcn8Yt2gMmEeAGX94nx7odc++aYte9CyvVgR7HJ1gIaEVOFHyODaivTdNkehZ262qIx0/bmDUKSZZX2y00sNUOWh6kxELnrZ86XGfGJlYOzrsNQD/LcYgp2dN6IePevNvSR06XCFOaCNaZrtX2OMIXvOFboxGZdbzoQ933BR12KMWmso4k2CY6/9GKH+XaI2hpDpjhE=
