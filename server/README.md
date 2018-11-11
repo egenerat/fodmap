@@ -43,3 +43,8 @@ Get logs
 ```
 heroku logs --tail
 ```
+
+Terminal access
+```
+heroku run bash
+```

@@ -1,6 +1,6 @@
 'use strict';
 const Clarifai = require('clarifai');
-const { CLARIFAI_API_KEY } = require('./secret-keys.js');
+const { CLARIFAI_API_KEY } = require('./secrets.js');
 const { HIGH_FODMAP_FOOD } = require('./constants.js');
 
 const app = new Clarifai.App({
