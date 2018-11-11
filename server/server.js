@@ -1,6 +1,9 @@
+'use strict';
 const express = require('express');
 const app = express();
 const formidable = require('formidable');
+var fs = require('fs');
+const { recognition } = require('./recognition.js');
 // const util = require('util');
 
 const port = process.env.PORT || 8080;
@@ -21,6 +24,8 @@ app.post('/upload/image', (req, res) => {
     form.parse(req, (err, fields, files) => {
         // console.log(util.inspect({fields: fields, files: files}));
         console.log(`Upload successful: ${files.photo.name} saved as ${files.photo.path} ${files.photo.type} ${files.photo.size} bytes`);
+        const imageAsBase64 = fs.readFileSync(files.photo.path, 'base64');
+        recognition(imageAsBase64);
         res.sendStatus(200);
     });
 });
