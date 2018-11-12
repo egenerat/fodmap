@@ -3,32 +3,6 @@ import logo from './logo.png';
 import strawberry from './strawberry.jpg';
 import './App.css';
 
-const foodData = [
-  {
-    'name': 'rice',
-    'fodmap': 'low'
-  },
-  {
-    'name': 'onion',
-    'fodmap': 'high',
-    'alternatives': [
-      'chives'
-    ]
-  },
-  {
-    'name': 'apple',
-    'fodmap': 'high'
-  },
-  {
-    'name': 'strawberry',
-    'fodmap': 'low'
-  },
-  {
-    'name': 'chives',
-    'fodmap': 'low'
-  }
-];
-
 
 const foodItemsBoxes = (foodItems) => foodItems.map((food) => {
   return <Card foodData={food}/>
@@ -39,8 +13,11 @@ const capitalizeFirstLetter = (string) => {
 }
 
 function Card(props) {
-  const fodmapStyle = props.foodData.fodmap === 'high' ? 'red lighten-4' : 'green lighten-4';
+  const fodmapStyle = props.foodData.fodmap === 'HIGH_FODMAP' ? 'red lighten-4' : 'green lighten-4';
   const classes = `card small ${fodmapStyle}`;
+  const alternativesList = props.foodData.alternatives;
+  const alternatives= alternativesList? <p>Alternatives: {alternativesList}</p> : '';
+  
   return (
     <div class={classes}>
       <div class="card-image waves-effect waves-block waves-light">
@@ -52,7 +29,7 @@ function Card(props) {
       <div class="card-reveal">
         <span class="card-title grey-text text-darken-4">More details: {capitalizeFirstLetter(props.foodData.name)}<i class="material-icons right">close</i></span>
         <p>Here is some more information about this product that is only revealed once clicked on.</p>
-        <p>Alternatives: {props.foodData.alternatives}</p>
+        {alternatives}
       </div>
     </div>
   );
@@ -78,10 +55,37 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = {
+      value: '',
+      error: null,
+      isLoaded: false,
+      foodData: []
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    fetch("https://fodmapp.herokuapp.com/api/food")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            foodData: result.items
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
   }
 
 
@@ -94,8 +98,8 @@ class App extends Component {
   }
 
 
-  getCompatibleFood(userInput) {
-    return foodData.filter((ingredient) => ingredient.name.toLowerCase().startsWith(userInput.toLowerCase()))
+  getCompatibleFood(foodList, userInput) {
+    return foodList.filter((ingredient) => ingredient.name.toLowerCase().startsWith(userInput.toLowerCase()))
   }
 
   render() {
@@ -109,7 +113,7 @@ class App extends Component {
           onChangeValue={this.handleChange}
           onSubmit={this.onSubmit}
         />
-        {foodItemsBoxes(this.getCompatibleFood(this.state.value))}
+        {foodItemsBoxes(this.getCompatibleFood(this.state.foodData, this.state.value))}
         <div style={{clear: "both"}}></div>
       </div>
     );
