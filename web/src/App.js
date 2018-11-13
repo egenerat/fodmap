@@ -40,7 +40,7 @@ class IngredientForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit}>
+      <form id="ingredientForm" onSubmit={this.props.handleSubmit}>
         <label>
           Ingredient:
           <input type="text" value={this.props.value} onChange={this.props.onChangeValue} />
