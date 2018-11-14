@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
+import SwipeableViews from 'react-swipeable-views';
 import logo from './logo.png';
 import strawberry from './strawberry.jpg';
 import './App.css';
 
+
+const styles = {
+  slide: {
+    padding: 15,
+    minHeight: 100,
+    color: '#fff',
+  },
+  slide1: {
+    background: '#FEA900',
+  },
+  slide2: {
+    background: '#B3DC4A',
+  },
+  slide3: {
+    background: '#6AC0FF',
+  },
+};
 
 const foodItemsBoxes = (foodItems) => foodItems.map((food) => {
   return <Card foodData={food}/>
@@ -109,12 +127,19 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">fodmap</h1>
         </header>
-        <IngredientForm
-          onChangeValue={this.handleChange}
-          onSubmit={this.onSubmit}
-        />
-        {foodItemsBoxes(this.getCompatibleFood(this.state.foodData, this.state.value))}
-        <div style={{clear: "both"}}></div>
+        <SwipeableViews index={1} enableMouseEvents>
+          <div style={Object.assign({}, styles.slide, styles.slide1)}>
+            Photo
+          </div>
+          <div style={Object.assign({}, styles.slide, styles.slide2)}>
+            <IngredientForm
+            onChangeValue={this.handleChange}
+            onSubmit={this.onSubmit}
+          />
+          {foodItemsBoxes(this.getCompatibleFood(this.state.foodData, this.state.value))}
+          <div style={{clear: "both"}}></div>
+          </div>
+        </SwipeableViews>
       </div>
     );
   }

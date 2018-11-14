@@ -1,11 +1,12 @@
 {
-  "name": "hello-world",
+  "name": "fodmap",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "react-swipeable-views": "^0.13.0"
   },
   "scripts": {
     "start": "react-scripts start",
