@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import logo from './logo.png';
 import strawberry from './strawberry.jpg';
+import PhotoPanel from './Photo.js';
 import './App.css';
 
 
@@ -129,7 +130,7 @@ class App extends Component {
         </header>
         <SwipeableViews index={1} enableMouseEvents>
           <div style={Object.assign({}, styles.slide, styles.slide1)}>
-            Photo
+            <PhotoPanel/>
           </div>
           <div style={Object.assign({}, styles.slide, styles.slide2)}>
             <IngredientForm
