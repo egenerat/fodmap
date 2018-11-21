@@ -48,3 +48,7 @@ Terminal access
 ```
 heroku run bash
 ```
+
+```
+heroku restart
+```
