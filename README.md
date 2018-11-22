@@ -8,4 +8,4 @@ Warning: this project in the current status is only for experimentations and sho
 
 [![Build Status](https://travis-ci.com/egenerat/fodmap.svg?branch=master)](https://travis-ci.com/egenerat/fodmap)
 
-Early version of the app can be found here: http://fodmap.surge.sh/
+Early version of the app can be found here: https://fodmapp.herokuapp.com/
