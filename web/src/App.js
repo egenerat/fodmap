@@ -23,8 +23,8 @@ const styles = {
   },
 };
 
-const foodItemsBoxes = (foodItems) => foodItems.map((food) => {
-  return <Card foodData={food}/>
+const foodItemsBoxes = (foodItems) => foodItems.map((food, key) => {
+  return <Card key={key} foodData={food}/>
 });
 
 const capitalizeFirstLetter = (string) => {
@@ -38,15 +38,15 @@ function Card(props) {
   const alternatives= alternativesList? <p>Alternatives: {alternativesList}</p> : '';
   
   return (
-    <div class={classes}>
-      <div class="card-image waves-effect waves-block waves-light">
-        <img alt="{props.foodData.name}" class="activator" src={strawberry} />
+    <div className={classes}>
+      <div className="card-image waves-effect waves-block waves-light">
+        <img alt="{props.foodData.name}" className="activator" src={strawberry} />
       </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">{capitalizeFirstLetter(props.foodData.name)}<i class="material-icons right">more</i></span>
+      <div className="card-content">
+        <span className="card-title activator grey-text text-darken-4">{capitalizeFirstLetter(props.foodData.name)}<i className="material-icons right">more</i></span>
       </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">More details: {capitalizeFirstLetter(props.foodData.name)}<i class="material-icons right">close</i></span>
+      <div className="card-reveal">
+        <span className="card-title grey-text text-darken-4">More details: {capitalizeFirstLetter(props.foodData.name)}<i className="material-icons right">close</i></span>
         <p>Here is some more information about this product that is only revealed once clicked on.</p>
         {alternatives}
       </div>

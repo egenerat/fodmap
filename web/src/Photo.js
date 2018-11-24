@@ -13,10 +13,10 @@ class Photo extends React.Component {
   render() {
     return (
       <form>
-        <label for="file-camera">Take a picture</label>
+        <label htmlFor="file-camera">Take a picture</label>
         <input type="file" accept="image/*" capture="environment" id="file-camera" name="hole" onChange={this.props.onChangeValue} />
         <br/>
-        <label for="file-upload">Upload a photo</label>
+        <label htmlFor="file-upload">Upload a photo</label>
         <input type="file" accept="image/*" id="file-upload" onChange={this.props.onChangeValue} />
 
         <h1 id="loading" style={{display: "none"}}>loading</h1>
