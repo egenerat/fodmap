@@ -46,7 +46,7 @@ const recognition = (picture) => {
         });
       }
       return Promise.resolve({
-        result: result
+        error: result
       });
     }, (err) => {
       console.log('failure calling recognition API');

@@ -1,6 +1,7 @@
 import React from 'react';
+import loading from './loading.gif';
 
-const processServerResponse = (res) => {
+const processResult = (res) => {
   if (res.guessFoodName) {
       return `${res.guessFoodName} is ${res.result}`;
   }
@@ -18,9 +19,11 @@ class Photo extends React.Component {
         <br/>
         <label htmlFor="file-upload">Upload a photo</label>
         <input type="file" accept="image/*" id="file-upload" onChange={this.props.onChangeValue} />
+        <br/>
 
-        <h1 id="loading" style={{display: "none"}}>loading</h1>
-        <div id="server-response"></div>
+        { this.props.foodNameGuess && this.props.fodmapStatus !== 'NOT_FOOD' ? <div>{this.props.foodNameGuess} is {this.props.fodmapStatus}</div> : null }
+
+        { this.props.isLoading ? <img src={loading} alt="loading animation" /> : null }
       </form>
     );
   }
@@ -30,40 +33,45 @@ class PhotoPanel extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      foodNameGuess: '',
+      fodmapStatus: '',
+      error: null,
+      isLoading: false
+    }
     this.handleChange = this.handleChange.bind(this);
-    // this.uploadFiles = this.uploadFiles.bind(this);
   }
 
-  uploadFiles(files) {
+  uploadFiles = (files) => {
     let photo = files[0];
     let formData = new FormData();
     formData.append("photo", photo);
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", 'https://fodmapp.herokuapp.com/upload/image');
-    xhr.responseType = 'json';
-    console.log('OPENED', xhr.readyState);
-    document.getElementById("loading").style.display = 'inline';
-    xhr.onprogress = function () {
-        console.log('LOADING', xhr.readyState);
-    };
-    xhr.onload = function () {
-        console.log('DONE', xhr.readyState);
-        console.log(xhr.response);
-        document.getElementById('server-response').innerHTML = processServerResponse(xhr.response);
-        document.getElementById("loading").style.display = 'none';
-    };
-    xhr.send(formData);
+    this.setState({
+      isLoading: true
+    });
+    return fetch('https://fodmapp.herokuapp.com/upload/image', {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(jsonResponse => this.setState({
+      isLoading: false,
+      foodNameGuess: jsonResponse.guessFoodName,
+      fodmapStatus: jsonResponse.result
+    }));
   }
 
   handleChange(event) {
-    // this.setState({ value: event.target.value });
-    this.uploadFiles(event.target.files)
+    this.uploadFiles(event.target.files);
   }
 
   render() {
     return (
       <Photo
         onChangeValue={this.handleChange}
+        isLoading={this.state.isLoading}
+        foodNameGuess={this.state.foodNameGuess}
+        fodmapStatus={this.state.fodmapStatus}
       />
     );
   }

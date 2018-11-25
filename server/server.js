@@ -10,8 +10,9 @@ const constants = require('./constants.js');
 const port = process.env.PORT || 8080;
 
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  // Enable CORS: only useful if frontend and API are hosted on different servers
+  // res.header('Access-Control-Allow-Origin', '*');
+  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
@@ -31,7 +32,7 @@ app.post('/upload/image', (req, res) => {
         .then(response => res.json(response));
     }
     else {
-      res.json({message: 'Upload incorrect'});
+      res.json({error: 'Upload incorrect'});
     }
   });
 });
