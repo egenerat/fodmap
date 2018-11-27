@@ -37,10 +37,6 @@ app.post('/upload/image', (req, res) => {
   });
 });
 
-app.get('/photo', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
-
 app.use(express.static('public'));
 
 app.listen(port, () => {
