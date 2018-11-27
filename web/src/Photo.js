@@ -1,13 +1,17 @@
 import React from 'react';
 import loading from './loading.gif';
 
-const processResult = (res) => {
-  if (res.guessFoodName) {
-      return `${res.guessFoodName} is ${res.result}`;
+const processResult = (foodName, fodmap) => {
+  let result = '';
+  if (foodName && fodmap !== 'NOT_FOOD') {
+      result += `${foodName} is `;
+      result += fodmap === 'LOW_FODMAP' ? 'low' : 'high';
+      result += ' fodmap';
   }
   else {
-      return 'Not recognized, is that food?';
+      result = 'Not recognized, is that food?';
   }
+  return result;
 }
 
 class Photo extends React.Component {
@@ -20,9 +24,9 @@ class Photo extends React.Component {
         <label htmlFor="file-upload">Upload a photo</label>
         <input type="file" accept="image/*" id="file-upload" onChange={this.props.onChangeValue} />
         <br/>
-
-        { this.props.foodNameGuess && this.props.fodmapStatus !== 'NOT_FOOD' ? <div>{this.props.foodNameGuess} is {this.props.fodmapStatus}</div> : null }
-
+        
+        { this.props.foodNameGuess ? <div id="server-response">{processResult(this.props.foodNameGuess, this.props.fodmapStatus)}</div> : null }
+        { this.props.error ? <div id="server-response">{this.props.error}</div> : null }
         { this.props.isLoading ? <img src={loading} alt="loading animation" /> : null }
       </form>
     );
@@ -57,7 +61,8 @@ class PhotoPanel extends React.Component {
     .then(jsonResponse => this.setState({
       isLoading: false,
       foodNameGuess: jsonResponse.guessFoodName,
-      fodmapStatus: jsonResponse.result
+      fodmapStatus: jsonResponse.result,
+      error: jsonResponse.error
     }));
   }
 
@@ -72,6 +77,7 @@ class PhotoPanel extends React.Component {
         isLoading={this.state.isLoading}
         foodNameGuess={this.state.foodNameGuess}
         fodmapStatus={this.state.fodmapStatus}
+        error={this.state.error}
       />
     );
   }

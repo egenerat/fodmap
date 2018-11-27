@@ -51,7 +51,9 @@ const recognition = (picture) => {
     }, (err) => {
       console.log('failure calling recognition API');
       console.log(err);
-      return Promise.resolve('RECOGNITION_ERROR');
+      return Promise.resolve({
+        error: 'RECOGNITION_ERROR'
+      });
     });
 };
 module.exports.recognition = recognition;

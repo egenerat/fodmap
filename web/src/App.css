@@ -24,6 +24,10 @@
   font-size: large;
 }
 
+#server-response:first-letter {
+  text-transform:capitalize;
+}
+
 .small {
   width: 200px;
   float: left;
